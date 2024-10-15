@@ -4,7 +4,7 @@ const Seat = ({ name, small, color, status }) => {
 
 
   const baseClasses = `p-1 text-center text-xs h-10 ${
-    small ? "w-14" : "w-20"
+    small ? "w-10" : "w-16"
   } flex flex-col items-center justify-center overflow-hidden transition-all duration-300`;
 
   const colors = {
