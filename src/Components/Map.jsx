@@ -106,7 +106,7 @@ const SeatMap = () =>{
         <EmptySeat />
         <EmptySeat />
         <EmptySeat />
-        <EmptySeat />
+       
         <EmptySeat />
         <EmptySeat />
         <EmptySeat />
@@ -171,7 +171,7 @@ const SeatMap = () =>{
         <EmptySeat />
         <EmptySeat />
         <EmptySeat />
-        <EmptySeat />
+       
         <EmptySeat />
         <EmptySeat />
         <EmptySeat />
