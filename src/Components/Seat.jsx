@@ -21,8 +21,8 @@ const Seat = ({ name, small, color, status }) => {
         boxShadow: `0 0 5px ${selectedColor}, 0 0 10px ${selectedColor}, 0 0 15px ${selectedColor}`,
       }}
     >
-      <div>{name}</div>
-      {status && <div className="text-[8px]">{status}</div>}
+      <div className='text-sm'>{name}</div>
+     
     </div>
   );
 };
