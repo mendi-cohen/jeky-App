@@ -111,7 +111,7 @@ const PlaceReservationForm = ({ object }) => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-4 rounded shadow-lg max-w-lg w-50">
+          <div className="bg-white p-4 rounded shadow-lg max-w-lg w-11/12">
             <h2 className="text-lg font-bold mb-2">בחר מקום (עד 3):</h2>
             <input
               type="text"
