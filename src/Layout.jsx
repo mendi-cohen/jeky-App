@@ -41,7 +41,7 @@ const Layout = () => {
   };
 
   return (
-    <div className="font-sans min-h-screen w-full" dir="rtl">
+    <div className="font-sans min-h-screen w-full overflow-x-auto" dir="rtl">
       {isPortrait && (
         <div className="fixed inset-0 bg-black bg-opacity-90 text-white flex items-center justify-center z-50 p-4">
           <div className="text-center">
@@ -59,9 +59,9 @@ const Layout = () => {
         </div>
       )}
 
-      {/* Header - עודכן כדי למלא את כל רוחב המסך */}
-      <div className="sticky top-0 z-40 w-full bg-gray-200 shadow-md min-w-full">
-        <div className="flex justify-between items-center px-4 py-2 w-full max-w-[2000px] mx-auto">
+      {/* Header */}
+      <div className="sticky top-0 z-40 w-full bg-gray-200 shadow-md">
+        <div className="flex justify-between items-center px-4 py-2 max-w-[2000px] mx-auto">
           <div className="flex gap-4 w-full justify-between">
             <button
               onClick={toggleForm}
@@ -84,7 +84,7 @@ const Layout = () => {
         </div>
       </div>
 
-      <div className="h-screen overflow-auto scroll-smooth">
+      <div className="h-screen overflow-x-auto overflow-y-auto">
         {/* Legend panel */}
         <div
           className={`fixed top-0 left-0 right-0 bg-yellow-100 p-4 shadow-lg z-50 transition-all duration-300 ease-in-out ${
@@ -97,14 +97,14 @@ const Layout = () => {
         {/* Form modal */}
         {showForm && (
           <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg shadow-xl max-w-md w-full m-4 max-h-[90vh] overflow-auto">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-50 m-4 max-h-[90vh] overflow-auto">
               <SeatForm object={setShowForm} />
             </div>
           </div>
         )}
 
         {/* Main content */}
-        <main className="w-full p-4">
+        <main className="w-[2000px] p-4 overflow-x-auto">
           <div className="max-w-screen-2xl mx-auto">
             <Outlet />
           </div>
