@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 const PlaceReservationForm = ({ object }) => {
   const [seats, setSeats] = useState([]);
-  const [selectedSeats, setSelectedSeats] = useState([]); // מערך למקומות שנבחרו
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const [isModalOpen, setModalOpen] = useState(false); // מצב המודל
+  const [isModalOpen, setModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [image, setImage] = useState(null);
 
   const close = () => {
     object(false);
@@ -31,13 +33,13 @@ const PlaceReservationForm = ({ object }) => {
   };
 
   const handleSeatSelect = (seat) => {
-    // אם המושב כבר נבחר, נסיר אותו מהנבחרים
     if (selectedSeats.includes(seat.name)) {
       setSelectedSeats(selectedSeats.filter(s => s !== seat.name));
+      setTotalPrice(totalPrice - 150);
     } else {
-      // אם לא נבחרו 3 מושבים, נוסיף את המושב הנבחר
       if (selectedSeats.length < 3) {
         setSelectedSeats([...selectedSeats, seat.name]);
+        setTotalPrice(totalPrice + 150);
       } else {
         alert('אפשר לבחור עד 3 מקומות בלבד.');
       }
@@ -49,12 +51,15 @@ const PlaceReservationForm = ({ object }) => {
     console.log('Name:', name);
     console.log('Birthdate:', birthdate);
     console.log('Selected Seats:', selectedSeats);
+    console.log('Total Price:', totalPrice);
+    console.log('Image:', image);
   };
 
-  // פילטרינג של הכיסאות על פי טקסט החיפוש
+  // שינוי בפילטור - הסרת התנאי של color === 'red'
   const filteredSeats = seats.filter(seat =>
-    seat.color === 'color1' && seat.name.toLowerCase().includes(searchTerm.toLowerCase())
+    seat.color === 'red' && seat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
 
   return (
     <>
@@ -63,7 +68,7 @@ const PlaceReservationForm = ({ object }) => {
           onClick={close}
           className="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold text-xl"
         >
-          ✕ {/* זה האיקס */}
+          ✕
         </button>
         
         <div className="mb-4">
@@ -85,13 +90,13 @@ const PlaceReservationForm = ({ object }) => {
             value={birthdate}
             onChange={(e) => setBirthdate(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="למשל ז' אדר"
+            placeholder="למשל ז אדר"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-bold mb-2">בחירת מקום (עד 3):</label>
+          <label className="block text-sm font-bold mb-2">בחירת מקום (עד 3 מקומות):</label>
           <button type="button" onClick={() => setModalOpen(true)} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
             בחר מקום
           </button>
@@ -104,6 +109,20 @@ const PlaceReservationForm = ({ object }) => {
           </div>
         </div>
 
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2">סך הכל לתשלום:</label>
+          <p className="text-lg font-semibold">{totalPrice} ₪</p>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2">הוסף צילום מסך של התשלום בפייבוקס:</label>
+          <input
+            type="file"
+            onChange={(e) => setImage(e.target.files[0])}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+
         <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-20 rounded">
           שלח
         </button>
@@ -111,7 +130,7 @@ const PlaceReservationForm = ({ object }) => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-4 rounded shadow-lg max-w-lg w-11/12">
+          <div className="bg-white p-4 rounded shadow-lg max-w-lg w-11/12 mx-4">
             <h2 className="text-lg font-bold mb-2">בחר מקום (עד 3):</h2>
             <input
               type="text"
@@ -121,19 +140,28 @@ const PlaceReservationForm = ({ object }) => {
               className="w-full p-2 border rounded mb-2"
             />
             <div className="max-h-60 overflow-y-auto">
-              <ul>
-                {filteredSeats.map(seat => (
-                  <li 
-                    key={seat.id} 
-                    onClick={() => handleSeatSelect(seat)} 
-                    className={`cursor-pointer hover:bg-gray-200 p-2 rounded ${selectedSeats.includes(seat.name) ? 'bg-blue-100' : ''}`}
-                  >
-                    {seat.name}
-                  </li>
-                ))}
-              </ul>
+              {filteredSeats.length > 0 ? (
+                <ul className="space-y-2">
+                  {filteredSeats.map(seat => (
+                    <li 
+                      key={seat.id} 
+                      onClick={() => handleSeatSelect(seat)} 
+                      className={`cursor-pointer hover:bg-gray-200 p-2 rounded ${
+                        selectedSeats.includes(seat.name) ? 'bg-blue-100' : ''
+                      }`}
+                    >
+                      {seat.name}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-center text-gray-500 py-4">לא נמצאו תוצאות</p>
+              )}
             </div>
-            <button onClick={() => setModalOpen(false)} className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
+            <button 
+              onClick={() => setModalOpen(false)} 
+              className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded w-full"
+            >
               סגור
             </button>
           </div>
