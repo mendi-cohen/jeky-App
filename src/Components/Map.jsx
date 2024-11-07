@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import Seat from './Seat';
 import SpecialArea from './SpecialArea';
-
+import { useReservation } from '../Contexts/Success'
 
 const EmptySeat = ({small}) =>  <div dir="rtl" className={`h-8 ${small ? 'w-10' : 'w-10'}`} />;
 
@@ -20,10 +20,17 @@ const Row = ({ children }) => (
 const SeatMap = () =>{
 
   const [seats, setSeats] = useState([]);
+  const { reservationSuccess } = useReservation(); 
 
   useEffect(() => {
     fetchSeats();
   }, []);
+
+  useEffect(() => {
+    if (reservationSuccess) {
+      fetchSeats(); 
+    }
+  }, [reservationSuccess]);
   const fetchSeats = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API}/getAllSeats`);
@@ -56,7 +63,6 @@ const SeatMap = () =>{
     );
   };
 
-  
   
   return (
   <div className="font-sans" dir="rtl">

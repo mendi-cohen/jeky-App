@@ -17,8 +17,8 @@ return (
         </div>
         <h3 className="text-black-500 font-bold"> מקרא:  </h3>
         <p className="text-green-500 font-bold"> ירוק: כיסא פנוי לרכישה </p>
-        <p className="text-blue-500 font-bold"> כחול: כיסא עם זכות קדימה למתפלל משנה שעברה   </p>
-        <p className="text-yellow-500 font-bold"> צהוב: כיסא בבדיקה (נתפס אך עדיין לא אושר סופית)</p>
+        <p className="text-blue-500 font-bold"> כחול: כיסא עם זכות קדימה למתפלל משנה שעברה  (ניתן לבחירה ללא התחייבות) </p>
+        <p className="text-yellow-500 font-bold"> צהוב: כיסא בבדיקה (נתפס אך עדיין לא אושר סופית) (לא ניתן לבחירה)</p>
         <p className="text-red-500 font-bold"> אדום: כיסא תפוס </p>
     </>
 )}
