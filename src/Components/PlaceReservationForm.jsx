@@ -53,14 +53,13 @@ const PlaceReservationForm = ({ object }) => {
     }
   };
 
-  const generatePayboxLink = () => {
-    const baseUrl = "https://payboxapp.page.link/JM39HhTUjwttGPf49";
-    return `${baseUrl}?amount=${totalPrice}`;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (selectedSeats.length === 0) {
+      alert("עליך לבחור לפחות מקום אחד.");
+      return;
+  }
     const formData = new FormData();
     formData.append("name", name);
     formData.append("birthdate", birthdate);
@@ -107,6 +106,7 @@ const PlaceReservationForm = ({ object }) => {
       <form
         onSubmit={handleSubmit}
         className="relative p-8 bg-gray-100 rounded shadow-md"
+        dir="rtl" 
       >
         <button
           onClick={close}
@@ -178,7 +178,7 @@ const PlaceReservationForm = ({ object }) => {
           <p className="text-lg font-semibold">{totalPrice} ₪</p>
         </div>
         <a
-          href={generatePayboxLink()}
+          href="https://payboxapp.page.link/JM39HhTUjwttGPf49"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-200 ease-in-out"
@@ -193,6 +193,7 @@ const PlaceReservationForm = ({ object }) => {
             type="file"
             onChange={(e) => setImage(e.target.files[0])}
             className="w-full p-2 border rounded"
+            required
           />
         </div>
 

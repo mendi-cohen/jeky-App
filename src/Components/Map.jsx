@@ -3,7 +3,7 @@ import Seat from './Seat';
 import SpecialArea from './SpecialArea';
 import { useReservation } from '../Contexts/Success'
 
-const EmptySeat = ({small}) =>  <div dir="rtl" className={`h-8 ${small ? 'w-10' : 'w-10'}`} />;
+const EmptySeat = ({small}) =>  <div dir="rtl" className={`h-8 ${small ? 'w-14' : 'w-10'}`} />;
 
 
 
@@ -283,7 +283,7 @@ const SeatMap = () =>{
         {renderSeat(113)}
         {renderSeat(114)}
       </Row>
-
+    <br />
       <div className="w-full border-b border-black" />
 
       <EmptySeat />
